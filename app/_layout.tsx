@@ -1,11 +1,15 @@
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
+import { Provider } from "react-redux";
+import store from "@/store";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import "react-native-reanimated";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
+import { SafeAreaView } from "react-native";
+import { Colors } from "@/constants";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -13,7 +17,7 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    Anton: require("../assets/fonts/Anton-Regular.ttf"),
   });
 
   useEffect(() => {
@@ -27,20 +31,21 @@ export default function RootLayout() {
   }
 
   return (
-    <Stack
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: "#f4511e",
-        },
-        headerTintColor: "#fff",
-        headerTitleStyle: {
-          fontWeight: "bold",
-        },
-      }}
-    >
-      <Stack.Screen name="index" />
-      <Stack.Screen name="details" />
-      <Stack.Screen name="search" />
-    </Stack>
+    <Provider store={store}>
+      <StatusBar translucent={false} backgroundColor={Colors.amber100} />
+      <SafeAreaView style={{ flex: 1 }}>
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            contentStyle: { backgroundColor: "white" },
+          }}
+        >
+          <Stack.Screen name="index" />
+          <Stack.Screen name="mealDetail" />
+          <Stack.Screen name="search" />
+          <Stack.Screen name="byCategory" />
+        </Stack>
+      </SafeAreaView>
+    </Provider>
   );
 }

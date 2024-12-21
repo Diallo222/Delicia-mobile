@@ -9,11 +9,16 @@ import {
 } from "react-native";
 
 interface SearchInputProps {
+  placeholder?: string;
   onFilter?: (query: string) => void;
   onSearch?: (query: string) => void;
 }
 
-const SearchInput: React.FC<SearchInputProps> = ({ onFilter, onSearch }) => {
+const SearchInput: React.FC<SearchInputProps> = ({
+  placeholder,
+  onFilter,
+  onSearch,
+}) => {
   const [searchText, setSearchText] = useState("");
 
   const handleSearch = () => {
@@ -35,7 +40,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ onFilter, onSearch }) => {
           styles.input,
           { width: onSearch && searchText ? "66%" : "100%" },
         ]}
-        placeholder="Search for a meal"
+        placeholder={placeholder}
         placeholderTextColor={"rgba(255, 255, 255, 0.5)"}
         value={searchText}
         onChangeText={setSearchText}

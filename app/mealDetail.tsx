@@ -12,9 +12,11 @@ import {
 import { Meal } from "../store/meal/types";
 import { useAppSelector } from "../store/hooks";
 import { Colors } from "@/constants";
-import { BackButton, Error, Loader } from "@/components/shared";
+import { BackButton, Error, ShimmerWrapper } from "@/components/shared";
 
 const { height } = Dimensions.get("screen");
+
+// Helper function to get ingredients with measures
 function getIngredientsWithMeasures(meal: Meal): string[] {
   const ingredients: string[] = [];
   for (let i = 1; i <= 20; i++) {
@@ -44,7 +46,36 @@ const MealDetail: React.FC = () => {
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <BackButton absolute />
-      {detailsLoading && <Loader />}
+      {detailsLoading && (
+        <View>
+          {/* Shimmer placeholders */}
+          <ShimmerWrapper visible={detailsLoading} style={styles.image} />
+          <View style={styles.detailsContainer}>
+            <ShimmerWrapper visible={detailsLoading} height={40} width="80%" />
+            <ShimmerWrapper visible={detailsLoading} height={20} width="60%" />
+            <ShimmerWrapper visible={detailsLoading} height={20} width="60%" />
+            <ShimmerWrapper
+              visible={detailsLoading}
+              height={40}
+              width={150}
+              style={styles.shimmerButton}
+            />
+          </View>
+          <View style={styles.instructionsContainer}>
+            <ShimmerWrapper visible={detailsLoading} height={30} width="40%" />
+            {Array(3)
+              .fill(null)
+              .map((_, index) => (
+                <ShimmerWrapper
+                  visible={detailsLoading}
+                  height={20}
+                  width="100%"
+                  key={`shimmer-${index}`}
+                />
+              ))}
+          </View>
+        </View>
+      )}
       {detailsError && <Error />}
       {details && (
         <>
@@ -96,8 +127,10 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     height: height * 0.4,
-    // borderBottomLeftRadius: 20,
-    // borderBottomRightRadius: 20,
+  },
+  shimmerButton: {
+    marginTop: 10,
+    borderRadius: 20,
   },
   title: {
     fontSize: 30,

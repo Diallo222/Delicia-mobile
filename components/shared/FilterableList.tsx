@@ -1,28 +1,30 @@
+import React, { useEffect, useState, useMemo } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
-import React, { useEffect, useState } from "react";
 import { Meal } from "@/store/meal/types";
 import BackButton from "./BackButton";
-import Loader from "./Loader";
 import Error from "./Error";
 import SearchInput from "./SearchInput";
 import Empty from "./Empty";
+import ShimmerWrapper from "./Shimmer";
 import { MealCard } from "../meals";
 import { Colors } from "@/constants";
+import { debounce } from "lodash";
 
 interface Props {
-  data: Required<Meal>[];
+  data: Meal[];
   loading: boolean;
   error: string | null;
 }
 
 const FilterableList: React.FC<Props> = ({ data, loading, error }) => {
-  const [filteredData, setFilteredData] = useState<Meal[]>([]);
+  const [filteredData, setFilteredData] = useState<Required<Meal>[]>(data);
 
   useEffect(() => {
-    setFilteredData(data.length > 0 ? data.slice(0, 16) : []);
+    setFilteredData(data);
   }, [data]);
 
-  const onType = (text: string) => {
+  // Handle filter on change
+  const handleFilter = (text: string) => {
     if (text.trim() === "") {
       setFilteredData(data);
     } else {
@@ -33,13 +35,29 @@ const FilterableList: React.FC<Props> = ({ data, loading, error }) => {
     }
   };
 
-  const Header = () => <SearchInput onFilter={onType} />;
+  // Debounced filter for better performance
+  const debouncedFilter = useMemo(() => debounce(handleFilter, 300), [data]);
+
+  const shimmerPlaceholders = Array(6).fill(null);
 
   return (
     <View style={styles.container}>
       <BackButton />
       {loading ? (
-        <Loader />
+        <FlatList
+          data={shimmerPlaceholders}
+          numColumns={2}
+          style={styles.listContainer}
+          keyExtractor={(_, index) => `shimmer-${index}`}
+          renderItem={() => (
+            <ShimmerWrapper
+              visible={loading}
+              style={styles.shimmerItem}
+              width={150}
+              height={200}
+            />
+          )}
+        />
       ) : error ? (
         <Error />
       ) : (
@@ -47,10 +65,19 @@ const FilterableList: React.FC<Props> = ({ data, loading, error }) => {
           data={filteredData}
           numColumns={2}
           style={styles.listContainer}
-          ListHeaderComponent={Header}
-          ListEmptyComponent={!loading && !error ? <Empty /> : null}
-          renderItem={({ item }) => <MealCard meal={item} />}
-          keyExtractor={(item, index) => item.idMeal || index.toString()}
+          ListHeaderComponent={
+            <ShimmerWrapper visible={loading}>
+              <SearchInput
+                placeholder="type to filter"
+                onFilter={debouncedFilter}
+              />
+            </ShimmerWrapper>
+          }
+          ListEmptyComponent={
+            !loading && !error && filteredData.length === 0 ? <Empty /> : null
+          }
+          renderItem={({ item }) => <MealCard variant="card" meal={item} />}
+          keyExtractor={(item) => item.idMeal}
         />
       )}
     </View>
@@ -70,5 +97,9 @@ const styles = StyleSheet.create({
   listContainer: {
     flex: 1,
     width: "100%",
+  },
+  shimmerItem: {
+    margin: 10,
+    borderRadius: 10,
   },
 });

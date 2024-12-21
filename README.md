@@ -1,20 +1,37 @@
-# Welcome to your Expo app 👋
+# Delicia
+
+The Art of Cooking: Find All Recipes for Your Preferred Delicious Meals
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
-## Get started
+## Installation
 
-1. Install dependencies
 
-   ```bash
-   npm install
-   ```
+1. **Clone the repository:**
 
-2. Start the app
+```bash
+ git clone https://github.com/Diallo222/Delicia-mobile.git
+```
 
-   ```bash
-    npx expo start
-   ```
+2. **Navigate to the project directory:**
+
+```bash
+ cd Delicia-mobile
+```
+3. **Install dependencies:**
+
+```bash
+npm install
+# or
+yarn install
+```
+4. **Start the development server:**
+
+```bash
+npm run start
+# or
+yarn run start
+```
 
 In the output, you'll find options to open the app in a
 
@@ -25,26 +42,35 @@ In the output, you'll find options to open the app in a
 
 You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-## Get a fresh project
 
-When you're ready, run:
+## Tech Stack
 
-```bash
-npm run reset-project
-```
+**Client:** Expo (React Native), Redux
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+**API:** [Meal Db](https://www.themealdb.com/)
 
-## Learn more
+## Contributing
 
-To learn more about developing your project with Expo, look at the following resources:
+1. Fork the repository.
+2. Create a new branch (git checkout -b feature-branch).
+3. Make your changes.
+4. Commit your changes (git commit -am 'Add new feature').
+5. Push to the branch (git push origin feature-branch).
+6. Create a new Pull Request.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
 
-## Join the community
+## License
 
-Join our community of developers creating universal apps.
+[MIT](https://choosealicense.com/licenses/mit/)
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+## Authors
+
+- [@Almahady Diallo](https://github.com/Diallo222/)
+
+
+## Feedback
+
+If you have any feedback, please reach out to me at almahadydiallo@gmail.com
+
+

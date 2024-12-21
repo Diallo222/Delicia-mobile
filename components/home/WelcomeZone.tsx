@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 15,
     fontFamily: "Anton",
+    marginTop: 5,
   },
   subtitle: {
     fontSize: 24,

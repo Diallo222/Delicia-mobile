@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { StyleSheet, ScrollView } from "react-native";
 import { useEffect } from "react";
 import { useNavigation } from "expo-router";
 import {
@@ -20,7 +20,7 @@ export default function HomeScreen() {
   const navigation = useNavigation();
   useEffect(() => {
     dispatch(getMealCategories());
-    dispatch(filterByCategory({ category: "Breakfast" }));
+    dispatch(filterByCategory({ category: "Beef" }));
   }, []);
   const handleSearch = (query: string) => {
     dispatch(getMealByName({ name: query }));
@@ -29,9 +29,13 @@ export default function HomeScreen() {
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <WelcomeZone />
-      <SearchInput onSearch={handleSearch} />
+      <SearchInput placeholder="Search for a meal" onSearch={handleSearch} />
       <CatList />
-      <DiscoverList title="Recommendations" data={filteredData} />
+      <DiscoverList
+        title="Recommendations"
+        data={filteredData}
+        loading={filterLoading}
+      />
     </ScrollView>
   );
 }

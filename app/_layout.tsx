@@ -6,8 +6,6 @@ import store from "@/store";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import "react-native-reanimated";
-
-import { useColorScheme } from "@/hooks/useColorScheme";
 import { SafeAreaView } from "react-native";
 import { Colors } from "@/constants";
 
@@ -15,7 +13,6 @@ import { Colors } from "@/constants";
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     Anton: require("../assets/fonts/Anton-Regular.ttf"),
   });
@@ -32,12 +29,16 @@ export default function RootLayout() {
 
   return (
     <Provider store={store}>
-      <StatusBar translucent={false} backgroundColor={Colors.amber100} />
+      <StatusBar
+        translucent={false}
+        style="dark"
+        backgroundColor={Colors.amber100}
+      />
       <SafeAreaView style={{ flex: 1 }}>
         <Stack
           screenOptions={{
             headerShown: false,
-            contentStyle: { backgroundColor: "white" },
+            contentStyle: { backgroundColor: Colors.amber100, paddingTop: 10 },
           }}
         >
           <Stack.Screen name="index" />

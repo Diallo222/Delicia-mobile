@@ -47,8 +47,6 @@ export const getMealByName = createAsyncThunk<
   NamePayload,
   { rejectValue: string }
 >("meal/getMealByName", async ({ name }, { rejectWithValue }) => {
-  console.log("name", name);
-
   try {
     const response = await axiosClient.get(`/search.php?s=${name}`);
     return response.data.meals;

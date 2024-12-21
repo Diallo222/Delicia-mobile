@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 24,
     fontFamily: "Anton",
+    marginTop: 10,
   },
   question: {
     fontSize: 17,

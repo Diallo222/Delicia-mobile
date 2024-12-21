@@ -3,4 +3,5 @@ import BackButton from "./BackButton";
 import Error from "./Error";
 import Loader from "./Loader";
 import Empty from "./Empty";
-export { SearchInput, BackButton, Error, Loader, Empty };
+import FilterableList from "./FilterableList";
+export { SearchInput, BackButton, Error, Loader, Empty, FilterableList };

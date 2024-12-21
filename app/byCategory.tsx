@@ -1,14 +1,19 @@
-import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { useAppSelector } from "@/store/hooks";
+import { FilterableList } from "@/components/shared";
 
 const ByCategory = () => {
+  const { filteredData, filterLoading, filterError } = useAppSelector(
+    (state) => state.categories
+  );
+
   return (
-    <View>
-      <Text>ByCategory</Text>
-    </View>
+    <FilterableList
+      data={filteredData}
+      loading={filterLoading}
+      error={filterError}
+    />
   );
 };
 
 export default ByCategory;
-
-const styles = StyleSheet.create({});

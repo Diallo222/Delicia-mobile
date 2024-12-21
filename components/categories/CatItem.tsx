@@ -29,7 +29,9 @@ export default CatItem;
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 15,
-    paddingVertical: 10,
+    paddingVertical: 5,
+    backgroundColor: Colors.zinc900,
+    borderRadius: 30,
   },
   text: {
     fontSize: 15,

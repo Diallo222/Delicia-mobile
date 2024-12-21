@@ -1,12 +1,16 @@
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { useEffect } from "react";
 import { useNavigation } from "expo-router";
-import { filterByCategory } from "@/store/categories/categoriesSlice";
+import {
+  filterByCategory,
+  getMealCategories,
+} from "@/store/categories/categoriesSlice";
 import { Colors } from "@/constants";
 import { SearchInput } from "@/components/shared";
 import { getMealByName } from "@/store/meal/mealSlice";
 import { WelcomeZone, DiscoverList } from "@/components/home";
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
+import { CatList } from "@/components/categories";
 
 export default function HomeScreen() {
   const { filteredData, filterLoading, filterError } = useAppSelector(
@@ -15,6 +19,7 @@ export default function HomeScreen() {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   useEffect(() => {
+    dispatch(getMealCategories());
     dispatch(filterByCategory({ category: "Breakfast" }));
   }, []);
   const handleSearch = (query: string) => {
@@ -25,7 +30,8 @@ export default function HomeScreen() {
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <WelcomeZone />
       <SearchInput onSearch={handleSearch} />
-      <DiscoverList title="For your Breakfast" data={filteredData} />
+      <CatList />
+      <DiscoverList title="Recommendations" data={filteredData} />
     </ScrollView>
   );
 }
